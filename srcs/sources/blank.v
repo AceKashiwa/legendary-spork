@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2025/03/25 11:43:39
+// Create Date: 
 // Design Name: 
-// Module Name: test
+// Module Name: 
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -14,17 +14,13 @@
 // Dependencies: 
 // 
 // Revision:
-// Revision 0.01 - File Created
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module onoff(
-    input button,
-    output reg light = 0
+module blank(
+    // I/O definitions
     );
-    always @(posedge button) begin
-        light <= ~light;
-    end
+    // 行为代码
 endmodule

@@ -1,3 +1,32 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 
+// Design Name: 
+// Module Name: 
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module blank(
+    // I/O definitions
+    );
+    // 行为代码
+endmodule
+
+
+
 module top(
     input clk,
     input reset,
