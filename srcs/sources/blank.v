@@ -20,7 +20,7 @@
 
 
 module blank(
-    // I/O definitions
+
     );
-    // 行为代码
+    
 endmodule
