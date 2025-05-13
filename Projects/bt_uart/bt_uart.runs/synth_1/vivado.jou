@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Mon Jul 10 22:29:43 2017
+# Process ID: 11592
+# Current directory: E:/w1/bt_uart/bt_uart.runs/synth_1
+# Command line: vivado.exe -log bt_uart.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source bt_uart.tcl
+# Log file: E:/w1/bt_uart/bt_uart.runs/synth_1/bt_uart.vds
+# Journal file: E:/w1/bt_uart/bt_uart.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source bt_uart.tcl -notrace
