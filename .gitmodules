@@ -1,0 +1,3 @@
+[submodule "Sources/Hardwares/fpga_oled_ssd1306"]
+	path = Sources/Hardwares/fpga_oled_ssd1306
+	url = git@github.com:lupyuen/fpga_oled_ssd1306.git

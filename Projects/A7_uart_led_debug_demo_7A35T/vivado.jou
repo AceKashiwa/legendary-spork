@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2017.1 (64-bit)
+# SW Build 1846317 on Fri Apr 14 18:55:03 MDT 2017
+# IP Build 1846188 on Fri Apr 14 20:52:08 MDT 2017
+# Start of session at: Thu Apr 26 10:09:36 2018
+# Process ID: 5680
+# Current directory: E:/SC_Vivado/A7_uart_led_debug_demo_7A35T
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6288 E:\SC_Vivado\A7_uart_led_debug_demo_7A35T\debug_demo.xpr
+# Log file: E:/SC_Vivado/A7_uart_led_debug_demo_7A35T/vivado.log
+# Journal file: E:/SC_Vivado/A7_uart_led_debug_demo_7A35T\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/SC_Vivado/A7_uart_led_debug_demo_7A35T/debug_demo.xpr
+update_compile_order -fileset sources_1

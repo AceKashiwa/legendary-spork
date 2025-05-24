@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcsg324-1" LaunchTime="1525255042">
+  <File Type="PA-TCL" Name="uart_led.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="uart_led_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="uart_led_reports.tcl"/>
+  <File Type="RDS-RDS" Name="uart_led.vds"/>
+  <File Type="RDS-UTIL" Name="uart_led_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="uart_led_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="uart_led.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="uart_led_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="uart_led_timing_summary_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/imports/lab2/led_ctl.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../lab2/led_ctl.v"/>
+        <Attr Name="ImportTime" Val="1355138792"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/lab2/meta_harden.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../lab2/meta_harden.v"/>
+        <Attr Name="ImportTime" Val="1355138792"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/lab2/uart_baud_gen.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../lab2/uart_baud_gen.v"/>
+        <Attr Name="ImportTime" Val="1355138794"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/lab2/uart_rx.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../lab2/uart_rx.v"/>
+        <Attr Name="ImportTime" Val="1355138794"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/lab2/uart_rx_ctl.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../lab2/uart_rx_ctl.v"/>
+        <Attr Name="ImportTime" Val="1355138796"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/lab2/uart_led.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../lab2/uart_led.v"/>
+        <Attr Name="ImportTime" Val="1375923970"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="uart_led"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/A7_uart_led.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../A7_uart_led/A7_uart_led.srcs/constrs_1/new/A7_uart_led.xdc"/>
+        <Attr Name="ImportTime" Val="1475759898"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/A7_uart_led.xdc"/>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="ila_0"/>
+</GenRun>

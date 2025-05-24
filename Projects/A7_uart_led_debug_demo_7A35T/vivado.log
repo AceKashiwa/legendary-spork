@@ -1,0 +1,32 @@
+#-----------------------------------------------------------
+# Vivado v2017.1 (64-bit)
+# SW Build 1846317 on Fri Apr 14 18:55:03 MDT 2017
+# IP Build 1846188 on Fri Apr 14 20:52:08 MDT 2017
+# Start of session at: Thu Apr 26 10:09:36 2018
+# Process ID: 5680
+# Current directory: E:/SC_Vivado/A7_uart_led_debug_demo_7A35T
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6288 E:\SC_Vivado\A7_uart_led_debug_demo_7A35T\debug_demo.xpr
+# Log file: E:/SC_Vivado/A7_uart_led_debug_demo_7A35T/vivado.log
+# Journal file: E:/SC_Vivado/A7_uart_led_debug_demo_7A35T\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project E:/SC_Vivado/A7_uart_led_debug_demo_7A35T/debug_demo.xpr
+Scanning sources...
+Finished scanning sources
+CRITICAL WARNING: [Project 1-505] Unrecognized Option Name CompiledLibDirXcelium
+CRITICAL WARNING: [Project 1-505] Unrecognized Option Name ProjectType
+WARNING: [filemgmt 56-3] IP Repository Path: Could not find the directory 'E:/../../work/Viva161_ip/XUP_74LSXX_Lib'.
+CRITICAL WARNING: [Project 1-505] Unrecognized Option Name SimTypes
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+WARNING: [IP_Flow 19-2248] Failed to load user IP repository 'e:/SC_Vivado/A7_uart_led_debug_demo_7A35T/work/Viva161_ip/XUP_74LSXX_Lib'; Can't find the specified path.
+If this directory should no longer be in your list of user repositories, go to the IP Settings dialog and remove it.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2017.1/data/ip'.
+WARNING: [IP_Flow 19-2162] IP 'ila_0' is locked:
+* Project containing IP 'ila_0' is read-only.
+* IP definition 'ILA (Integrated Logic Analyzer) (6.2)' for IP 'ila_0' (customized with software release 2017.4) has a different revision in the IP Catalog.
+Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
+WARNING: [Project 1-231] Project 'debug_demo.xpr' was created with a future version and may or may not perform reliably with this version of Vivado. It has been opened in read-only mode for the protection of unrecognized data. Use 'File | Save Project As...' if you wish to alter a copy of the project.
+open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 846.488 ; gain = 83.047
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 26 10:10:22 2018...

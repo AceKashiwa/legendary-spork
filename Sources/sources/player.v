@@ -1,9 +1,13 @@
+`timescale 1ns/1ps
+
 module song(
     input sys_clk,
     output reg speaker,
     output reg [2:0] cs,    // 数码管
-    output [6:0] seg_7s
+    output [6:0] seg_7s,
+    output buzzer
 );
+    assign buzzer = speaker;
     wire clk_6mhz;  // 音阶
     clk_self #(8) u1(
         .clk(sys_clk),
@@ -20,6 +24,20 @@ module song(
     reg carry;
     reg [7:0] counter;
     reg [3:0] high, med, low, num;
+
+    music_score_RAM music_score_RAM_inst (
+        .clk(clk_4hz),
+        .rst_n(1'b1),      // 若有复位信号请替换
+        .re(1'b1),
+        .addr(counter),
+        .data(music_data)
+    );    
+
+    // 调用buzzer频率ROM模块
+    music_freq_ROM buzzer_rom_inst (
+        .note_code({high, med, low}),
+        .origin(origin)
+    );
 
     always @(posedge clk_6mhz) begin    // 置数改变分频比
         if (divider == 16383)
@@ -38,21 +56,6 @@ module song(
         speaker <= ~speaker;
     end
 
-    always @(posedge clk_4hz) begin
-        case ({high, med, low})
-            'h001:  origin <= 4915; 'h002:  origin <= 6168;
-            'h003:  origin <= 7281; 'h004:  origin <= 7792;
-            'h005:  origin <= 8730; 'h006:  origin <= 9565;
-            'h007:  origin <= 10310;    'h010:  origin <= 10647;
-            'h020:  origin <= 11272;    'h030:  origin <= 11831;
-            'h040:  origin <= 12094;    'h050:  origin <= 12556; 
-            'h060:  origin <= 12947;    'h070:  origin <= 13346;
-            'h100:  origin <= 13516;    'h200:  origin <= 13829;
-            'h300:  origin <= 14109;    'h400:  origin <= 14235;
-            'h500:  origin <= 14470;    'h600:  origin <= 14678;
-            'h700:  origin <= 14864;    'h000:  origin <= 16383;
-        endcase
-    end
 
     always @(posedge clk_4hz) begin
         if (counter == 134)
@@ -72,7 +75,7 @@ module song(
             9:begin {high, med, low} <= 'h010;  cs <= 3'b010; end
             10:begin {high, med, low} <= 'h010;  cs <= 3'b010; end
             11:begin {high, med, low} <= 'h020;  cs <= 3'b010; end
-            12:begin {high, med, low} <= 'h006;  cs <= 3'b010; end
+            12:begin {high, med, low} <= 'h006;  cs <= 3'b001; end
             13:begin {high, med, low} <= 'h010;  cs <= 3'b010; end
             14:begin {high, med, low} <= 'h005;  cs <= 3'b001; end
             15:begin {high, med, low} <= 'h005;  cs <= 3'b001; end
@@ -198,4 +201,14 @@ module song(
             default:begin {high, med, low} <= 'h000;  cs <= 3'b010; end
         endcase
     end
+    
+    assign an = {cs[2], cs[1], cs[0], 1'b1};
+    seg7decimal u3(
+        .x({high, med, low}),
+        .clk(clk_4hz),
+        .clr(1'b0),
+        .a_to_g(seg_7s),
+        .an(an),
+        .dp()
+    );
 endmodule

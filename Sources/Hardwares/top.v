@@ -34,8 +34,8 @@ module top(
     assign aen = 8'b11111111; // 使能所有数码管
     assign dp_en = 8'b00010100; // 不显示小数点
 
-    timer_hms timer_hms_inst (
-        .clk(sys_clk_in),
+    timer_hms_top timer_hms_top_inst (
+        .clk_100m(sys_clk_in),
         .rst_n(sys_rst_n),
         .hms_hex(x)
     );

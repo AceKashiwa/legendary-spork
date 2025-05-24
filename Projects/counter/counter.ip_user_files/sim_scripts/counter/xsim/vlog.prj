@@ -1,0 +1,10 @@
+verilog xil_defaultlib  \
+"../../../../counter.srcs/sources_1/bd/counter/ipshared/ea72/clk_div_10Hz.srcs/sources_1/new/clk_div_10Hz.v" \
+"../../../../counter.srcs/sources_1/bd/counter/ip/counter_clk_div_10Hz_0_0/sim/counter_clk_div_10Hz_0_0.v" \
+"../../../../counter.srcs/sources_1/bd/counter/ipshared/23ab/seg7_EGo.srcs/sources_1/new/seg7_EGo1.v" \
+"../../../../counter.srcs/sources_1/bd/counter/ip/counter_seg7_hex_0_0/sim/counter_seg7_hex_0_0.v" \
+"../../../../counter.srcs/sources_1/bd/counter/sim/counter.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort
