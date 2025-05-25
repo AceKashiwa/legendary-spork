@@ -50,7 +50,7 @@ module song(
     always @(posedge clk_4hz or negedge rst_n) begin
         if (!rst_n)
             counter <= 0;
-        else if (counter == 134) // 若乐谱长度不同请同步修改
+        else if (counter == 128) // 若乐谱长度不同请同步修改
             counter <= 0;
         else
             counter <= counter + 1;
