@@ -33,7 +33,7 @@ module song(
 
     reg [7:0] counter; // 足够覆盖乐谱长度
     wire [11:0] note_data; // {high, med, low}
-    music_score_ROM music_score_ROM_inst (
+    music_score_ROM_xxx music_score_ROM_inst (
         .addr(counter),
         .data(note_data)
     );
