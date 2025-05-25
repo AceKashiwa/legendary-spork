@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 小星星乐谱ROM，只读、组合逻辑输出
+// Description: 小星星乐谱ROM，每1拍延长为3拍加1空拍
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -23,11 +23,12 @@ module music_score_ROM_xxx #(
 );
     reg [ROM_WIDTH-1:0] Mem[0:ROM_DEPTH-1];
 
-    // 小星星简谱：1 1 5 5 6 6 5 | 4 4 3 3 2 2 1 | 5 5 4 4 3 3 2 | 5 5 4 4 3 3 2 | 1 1 5 5 6 6 5 | 4 4 3 3 2 2 1
+    // 小星星简谱，每1拍延长为3拍加1空拍
+    // 例如原来：1 | 1 | 5 | 5 | ... 变为：1 1 1 0 | 1 1 1 0 | 5 5 5 0 | 5 5 5 0 | ...
     // 只用C调，1=C，2=D，3=E，4=F，5=G，6=A
     // 低音：{4'h0, 4'h0, 4'hX}，X为音符
     // 静音：{4'h0, 4'h0, 4'h0}
-    initial begin
+    initial begin : rom_init
         integer i, j, k;
         reg [7:0] base[0:31];
         // 原始32拍乐谱
@@ -35,7 +36,6 @@ module music_score_ROM_xxx #(
         base[ 8]=4; base[ 9]=4; base[10]=3; base[11]=3; base[12]=2; base[13]=2; base[14]=1; base[15]=0;
         base[16]=5; base[17]=5; base[18]=4; base[19]=4; base[20]=3; base[21]=3; base[22]=2; base[23]=0;
         base[24]=5; base[25]=5; base[26]=4; base[27]=4; base[28]=3; base[29]=3; base[30]=2; base[31]=0;
-        // 展开为每音3拍+1空拍
         k = 0;
         for(i=0;i<32;i=i+1) begin
             for(j=0;j<3;j=j+1) begin
