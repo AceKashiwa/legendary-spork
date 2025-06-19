@@ -1,7 +1,0 @@
-Running: xsim.dir/L298N_tb_behav/xsimk.exe -simmode gui -wdb L298N_tb_behav.wdb -simrunnum 0 -socket 49192
-Design successfully loaded
-Design Loading Memory Usage: 9080 KB (Peak: 9080 KB)
-Design Loading CPU Usage: 15 ms
-Simulation completed
-Simulation Memory Usage: 9960 KB (Peak: 9960 KB)
-Simulation CPU Usage: 15 ms
