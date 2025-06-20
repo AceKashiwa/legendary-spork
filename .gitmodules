@@ -1,3 +1,0 @@
-[submodule "IPs/Verilog_SSD1306_CFG_IP"]
-	path = IPs/Verilog_SSD1306_CFG_IP
-	url = git@github.com:MorgothCreator/Verilog_SSD1306_CFG_IP.git
