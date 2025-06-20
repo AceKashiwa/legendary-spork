@@ -4,7 +4,9 @@ module clk_self #(
     input clk,
     output reg clk_out
 );
-    reg [31:0] count;
+    reg [31:0] count = 0;
+    initial clk_out = 0; // 初始化输出为0
+
     always @(posedge clk) begin
         if (count == DIV - 1)
         begin

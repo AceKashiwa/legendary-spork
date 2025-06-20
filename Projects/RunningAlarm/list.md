@@ -29,3 +29,8 @@
 ![音高表](./assets/音高表.png)
 
 ## KY-032
+
+## BLE-CC41-A
+
+![蓝牙模块](./assets/蓝牙模块.png)
+![蓝牙引脚](./assets/蓝牙引脚.png)
