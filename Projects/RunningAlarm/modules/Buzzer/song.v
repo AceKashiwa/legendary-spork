@@ -15,57 +15,80 @@
 module song(
     input sys_clk,
     input rst_n,
-    output reg speaker,
+    input [3:0] music_index, // 添加外部曲目选择信号
+    output reg speaker = 1'b0, // 初始化为0
     output buzzer
 );
 
-    wire clk_6mhz;  // 音阶
-    clk_self #(8) u1(
+    wire clk_6mhz;
+    clk_self #(4) u1(
         .clk(sys_clk),
         .clk_out(clk_6mhz)
     );
 
-    wire clk_4hz;   // 音长
-    clk_self #(12500000) u2(
+    wire clk_4hz;
+    clk_self #(1000) u2(
         .clk(sys_clk),
         .clk_out(clk_4hz)
     );
 
-    reg [7:0] counter; // 足够覆盖乐谱长度
-    wire [11:0] note_data; // {high, med, low}
-    music_score_ROM_xxx music_score_ROM_inst (
-        .addr(counter),
-        .data(note_data)
-    );
+    // 为不同曲目定义最大长度
+    localparam SONG0_LEN = 135;
+    localparam SONG1_LEN = 128;
+    
+    reg [7:0] counter0 = 0;
+    reg [6:0] counter1 = 0; // 假设第二首歌长度不超过128
 
+    reg [3:0] last_music_index;
 
-    reg [3:0] high, med, low;
-    wire [15:0] origin_wire;
-    music_freq_ROM music_freq_ROM_inst (
-        .note_code({high, med, low}),
-        .origin(origin_wire)
-    );
+    // 选择当前使用的计数器
+    wire [7:0] counter_sel = (music_index == 4'd0) ? counter0 :
+                             (music_index == 4'd1) ? {1'b0, counter1} : 8'd0;
 
-    // 节拍计数与音符取出
+    // ROM输出
+    wire [11:0] note_data0, note_data1;
+    wire [11:0] note_data;
+
+    music_score_ROM     rom0 (.addr(counter0),      .data(note_data0));
+    music_score_ROM_xxx rom1 (.addr(counter1),      .data(note_data1));
+
+    assign note_data = (music_index == 4'd0) ? note_data0 :
+                       (music_index == 4'd1) ? note_data1 :
+                       12'h000;
+
+    // 节拍计数与音符取出，曲目切换时各自归零
     always @(posedge clk_4hz or negedge rst_n) begin
-        if (!rst_n)
-            counter <= 0;
-        else if (counter == 127) // 若乐谱长度不同请同步修改
-            counter <= 0;
-        else
-            counter <= counter + 1;
-
-        {high, med, low} <= note_data;
+        if (!rst_n) begin
+            counter0 <= 0;
+            counter1 <= 0;
+            last_music_index <= music_index;
+        end else begin
+            last_music_index <= music_index;
+            if (music_index == 4'd0) begin
+                if (counter0 == SONG0_LEN-1)
+                    counter0 <= 0;
+                else
+                    counter0 <= counter0 + 1;
+            end else if (music_index == 4'd1) begin
+                if (counter1 == SONG1_LEN-1)
+                    counter1 <= 0;
+                else
+                    counter1 <= counter1 + 1;
+            end
+        end
     end
 
+    // 音符同步
+    always @(*) begin
+        {high, med, low} = note_data;
+    end
 
-    reg [15:0] divider;
-    reg carry;
+    reg [15:0] divider = 16'd0; // 初始化
+    reg carry = 1'b0;           // 初始化
 
     // 分频器
     always @(posedge clk_6mhz) begin
-        if (divider == 16383)
-        begin
+        if (divider == 16383) begin
             divider <= origin_wire;
             carry <= 1'b1;
         end else begin
@@ -73,7 +96,6 @@ module song(
             carry <= 1'b0;
         end
     end
-
 
     always @(posedge carry) begin   // 方波信号
         speaker <= ~speaker;

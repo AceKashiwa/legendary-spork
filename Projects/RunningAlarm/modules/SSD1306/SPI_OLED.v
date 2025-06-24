@@ -8,7 +8,6 @@ module SPI_OLED(
     output  oled_DC
 );
 
-// 使用已有分频模块
 wire dri_clk;
 clk_self #(
     .DIV(50)
@@ -20,25 +19,36 @@ clk_self #(
 wire key_value;
 wire key_flag;
 
+// 8行，每行21字符
+wire [167:0] line0 = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U"};
+wire [167:0] line1 = {"V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"};
+wire [167:0] line2 = {"q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9"," "};
+wire [167:0] line3 = {"!","@","#","$","%","^","&","*","(",")","-","_","+","=","[","]","{","}",";",":"," "};
+wire [167:0] line4 = {"1","2","3","4","5","6","7","8","9","0","A","B","C","D","E","F","G","H","I","J","K"};
+wire [167:0] line5 = {"L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f"};
+wire [167:0] line6 = {"g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," "};
+wire [167:0] line7 = {"!","@","#","$","%","^","&","*","(",")","-","_","+","=","[","]","{","}",";",":"," "};
+
+wire [1343:0] str_data = {line7, line6, line5, line4, line3, line2, line1, line0}; // 8行
+
 oled_display u_oled_display(
-    .clk_in         (dri_clk),                  //使用系统时钟仿真
-    .sys_rst_n      (rst_in),                   //复位信号
-    .key            (key_value),
-    .key_flag       (key_flag),
-    //oled接口                          
-    .oled_SCL       (oled_SCL),    // SPI时钟输出
-    .oled_SDA       (oled_SDA),    // SPI数据输出
-    .oled_RES       (oled_RES),    // OLED复位
-    .oled_DC        (oled_DC)      // 数据/命令选择
+    .clk_in     (dri_clk),
+    .sys_rst_n  (rst_in),
+    .key        (key_value),
+    .key_flag   (key_flag),
+    .oled_SCL   (oled_SCL),
+    .oled_SDA   (oled_SDA),
+    .oled_RES   (oled_RES),
+    .oled_DC    (oled_DC),
+    .str_data   (str_data)
 );
 
 key_debounce u_key(
-    .sys_clk    (dri_clk),         //使用系统时钟仿真
-    .sys_rst_n  (rst_in),        //外部复位信号，低有效
-    
-    .key        (key),              //外部按键输入
-    .key_flag   (key_flag),         //按键数据有效信号
-    .key_value  (key_value)       //按键消抖后的数据  
-    );
+    .sys_clk    (dri_clk),
+    .sys_rst_n  (rst_in),
+    .key        (key),
+    .key_flag   (key_flag),
+    .key_value  (key_value)
+);
 
 endmodule
