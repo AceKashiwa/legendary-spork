@@ -56,6 +56,82 @@ RunningAlarm系统架构
     └── assets/          # 资源文件
 ```
 
+## 📁 项目文件结构
+
+```text
+RunningAlarm/
+├── 📁 AlarmCore/                    # 核心控制模块
+│   ├── 📄 alarm.v                   # 闹钟逻辑控制 (174行)
+│   ├── 📄 buzzer.v                  # 蜂鸣器音频控制 (119行)
+│   ├── 📄 clk_div.v                 # 时钟分频器
+│   └── 📄 core.v                    # 系统顶层模块 (337行)
+├── 📁 BLE-CC41-A/                   # 蓝牙通信模块
+│   ├── 📄 bt_uart.v                 # 蓝牙UART接口
+│   ├── 📄 cmd_parse.v               # 命令解析器 (272行)
+│   ├── 📄 resp_gen.v                # 响应生成器
+│   ├── 📄 uart_rx.v                 # UART接收模块
+│   ├── 📄 uart_tx.v                 # UART发送模块
+│   ├── 📄 clk_gen.v                 # 时钟生成器
+│   ├── 📄 debouncer.v               # 防抖动模块
+│   ├── 📄 meta_harden.v             # 亚稳态处理
+│   ├── 📄 reset_bridge.v            # 复位桥接
+│   ├── 📄 seg7decimal.v             # 七段数码管显示
+│   ├── 📄 to_bcd.v                  # 二进制转BCD
+│   ├── 📄 uart_baud_gen.v           # 波特率生成器
+│   ├── 📄 uart_rx_ctl.v             # UART接收控制
+│   ├── 📄 uart_tx_ctl.v             # UART发送控制
+│   ├── 📄 lb_ctl.v                  # 环回控制
+│   ├── 📄 rst_gen.v                 # 复位生成器
+│   └── 📄 clogb2.txt                # 对数计算函数
+├── 📁 HC-SR04/                      # 超声波测距模块
+│   └── 📄 diatance.v                # 距离测量模块 (84行)
+├── 📁 L298N/                        # 电机驱动模块
+│   └── 📄 run.v                     # 运动控制模块 (62行)
+├── 📁 SSD1306/                      # OLED显示模块
+│   ├── 📄 debounce.v                # 按键防抖动
+│   ├── 📄 font_rom.v                # 字库ROM (3595行)
+│   ├── 📄 oled_display.v            # OLED显示控制
+│   ├── 📄 oled_driver.v             # OLED底层驱动 (62行)
+│   └── 📄 oled_time_display.v       # 时间显示模块 (169行)
+├── 📁 assets/                       # 资源文件
+│   ├── 🖼️ 红外人体感应模块.png        # 传感器图片
+│   ├── 🖼️ 红外人体感应原理.png        # 原理图
+│   ├── 🖼️ 超声波时序图.png           # 时序图
+│   ├── 🖼️ 舵机角度.png              # 舵机控制
+│   ├── 🖼️ L298N模块.png             # 电机驱动图
+│   ├── 🖼️ L298N真值表.png           # 真值表
+│   ├── 🖼️ SSD1306原理.png           # OLED原理
+│   ├── 🖼️ SPI指令.png               # SPI命令
+│   ├── 🖼️ SPI时序.png               # SPI时序
+│   ├── 🖼️ 音高表.png                # 音频频率表
+│   ├── 🖼️ 蓝牙模块.png              # 蓝牙模块图
+│   └── 🖼️ 蓝牙引脚.png              # 引脚定义
+├── 📁 debug/                        # 调试工具
+│   ├── 🐍 oled_debug.py             # OLED调试脚本 (89行)
+│   ├── 🐍 parse_str_data.py         # 数据解析脚本
+│   ├── 🖼️ oled_output.png           # 输出图像
+│   ├── 📄 oled_str_data_bin.txt     # 二进制数据
+│   └── 📄 spi_output.txt            # SPI输出记录
+├── 📄 EGo1.xdc                      # FPGA引脚约束文件 (227行)
+├── 📄 list.md                       # 硬件模块清单 (60行)
+├── 📄 Todo.md                       # 开发任务清单 (74行)
+└── 📄 README.md                     # 项目说明文档
+```
+
+### 代码规模统计
+
+| 模块类别 | 文件数量 | 代码行数 | 主要功能 |
+|----------|----------|----------|----------|
+| **核心控制** | 4 | ~630行 | 系统控制、闹钟逻辑、音频 |
+| **蓝牙通信** | 15 | ~1000行 | UART通信、命令解析 |
+| **传感器** | 1 | 84行 | 超声波测距 |
+| **电机控制** | 1 | 62行 | 运动控制 |
+| **显示模块** | 5 | ~3800行 | OLED驱动、字库、显示 |
+| **调试工具** | 2 | ~150行 | Python调试脚本 |
+| **约束文件** | 1 | 227行 | FPGA引脚定义 |
+| **文档资料** | 3 | ~200行 | 项目文档 |
+| **总计** | **32** | **~6153行** | **完整系统实现** |
+
 ## 🔍 详细模块介绍
 
 ### 🧠 核心控制层 (AlarmCore/)
@@ -293,11 +369,88 @@ localparam
 | **蜂鸣器** | B17(BUZZ) | 音频输出 |
 | **HC-SR04** | B16(TRIG), A15(ECHO) | 超声波测距 |
 | **红外传感器** | H17(PEOPLE_BACK), K13(PEOPLE_FRONT) | 人体检测 |
-| **BLE-CC41-A** | UART接口 | 蓝牙通信 |
+| **BLE-CC41-A** | L3(RX), N2(TX) | 蓝牙通信 |
+| **L298N电机驱动** | A11(IN1), E16(IN2), C15(IN3), G16(IN4) | 双电机控制 |
+| **电机使能** | B11(ENA), H16(ENB) | 电机使能信号 |
+| **舵机控制** | A16(SERVO) | 舵机PWM信号 |
+
+### 完整引脚分配表
+
+根据EGo1.xdc约束文件，完整的引脚分配如下：
+
+#### 系统控制引脚
+
+| 信号名 | 引脚号 | 电平标准 | 功能描述 |
+|--------|--------|----------|----------|
+| sys_clk_in | P17 | LVCMOS33 | 100MHz系统时钟 |
+| sys_rst_n | P15 | LVCMOS33 | 系统复位（低有效） |
+
+#### 通信接口引脚
+
+| 信号名 | 引脚号 | 电平标准 | 功能描述 |
+|--------|--------|----------|----------|
+| PC_Uart_rxd | N5 | LVCMOS33 | PC串口接收 |
+| PC_Uart_txd | T4 | LVCMOS33 | PC串口发送 |
+| BT_Uart_rxd | L3 | LVCMOS33 | 蓝牙串口接收 |
+| BT_Uart_txd | N2 | LVCMOS33 | 蓝牙串口发送 |
+
+#### 蓝牙控制引脚
+
+| 信号名 | 引脚号 | 电平标准 | 功能描述 |
+|--------|--------|----------|----------|
+| bt_ctrl_o[0] | D18 | LVCMOS33 | 蓝牙控制信号0 |
+| bt_ctrl_o[1] | M2 | LVCMOS33 | 蓝牙控制信号1 |
+| bt_ctrl_o[2] | H15 | LVCMOS33 | 蓝牙控制信号2 |
+| bt_ctrl_o[3] | C16 | LVCMOS33 | 蓝牙控制信号3 |
+| bt_ctrl_o[4] | E18 | LVCMOS33 | 蓝牙控制信号4 |
+| bt_mcu_int_i | C17 | LVCMOS33 | 蓝牙中断输入 |
+
+#### 音频接口引脚
+
+| 信号名 | 引脚号 | 电平标准 | 功能描述 |
+|--------|--------|----------|----------|
+| audio_pwm_o | T1 | LVCMOS33 | 音频PWM输出 |
+| audio_sd_o | M6 | LVCMOS33 | 音频控制输出 |
+
+#### I2C接口引脚
+
+| 信号名 | 引脚号 | 电平标准 | 功能描述 |
+|--------|--------|----------|----------|
+| pw_iic_scl_io | F18 | LVCMOS33 | I2C时钟信号 |
+| pw_iic_sda_io | G18 | LVCMOS33 | I2C数据信号 |
+
+#### 扩展IO引脚 (exp_io)
+
+| 信号名 | 引脚号 | 复用功能 | 功能描述 |
+|--------|--------|----------|----------|
+| exp_io[0] | B16 | TRIG | 超声波触发信号 |
+| exp_io[1] | A15 | ECHO | 超声波回波信号 |
+| exp_io[14] | K13 | PEOPLE_FRONT | 前方红外传感器 |
+| exp_io[15] | H17 | PEOPLE_BACK | 后方红外传感器 |
+| exp_io[16] | B17 | BUZZ | 蜂鸣器信号 |
+| exp_io[28] | G14 | DC | OLED DC控制 |
+| exp_io[29] | D17 | RES | OLED复位信号 |
+| exp_io[30] | J13 | SDA | OLED SDA信号 |
+| exp_io[31] | G17 | SCL | OLED SCL信号 |
+
+#### 电机控制引脚
+
+| 信号名 | 引脚号 | 电平标准 | 功能描述 |
+|--------|--------|----------|----------|
+| motor_in1 | A11 | LVCMOS33 | 左电机IN1 |
+| motor_in2 | E16 | LVCMOS33 | 左电机IN2 |
+| motor_in3 | C15 | LVCMOS33 | 右电机IN3 |
+| motor_in4 | G16 | LVCMOS33 | 右电机IN4 |
+| motor_ena | B11 | LVCMOS33 | 左电机使能 |
+| motor_enb | H16 | LVCMOS33 | 右电机使能 |
+| servo_pwm | A16 | LVCMOS33 | 舵机PWM信号 |
 
 ### 约束文件
 
 - `EGo1.xdc` - EGo1开发板引脚约束文件
+  - 包含227行完整的引脚定义
+  - 支持LVCMOS33电平标准
+  - 兼容Xilinx 7系列FPGA
 
 ## 🎯 功能详解
 
